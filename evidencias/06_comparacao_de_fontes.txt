@@ -1,0 +1,6 @@
+Comparação feita em 2026-11-01T22:07:43+00:00 (UTC) | Marília-SP | 2026-09-26 a 2026-10-25
+       modelo grade_lat grade_lon dias_sem_chuva_informada chuva_mm dias_chuva maior_seca_dias dias_30c tmax_c tmin_c
+   best_match  -22.2496  -49.9277                        0    171.5         18               5        7   33.2   12.2
+    ecmwf_ifs  -22.2496  -49.9277                        0    171.5         18               5        8   33.0   12.3
+era5_seamless     -22.2     -49.9                        0    149.2         17               5        8   33.4   12.9
+    era5_land     -22.2     -49.9                       30      NaN       None            None        8   33.4   12.9

@@ -1,0 +1,23 @@
+Arquivo lido: open_meteo_marilia-sp_2026-09-26_2026-10-25.json (coletado em 2026-11-01T21:51:51+00:00 UTC)
+Colunas padronizadas: data, temp_min_c, temp_max_c, precip_mm
+Tipos: data=datetime64[us], temp_min_c=float64, temp_max_c=float64, precip_mm=float64
+Verificações de qualidade:
+  [OK   ] Datas válidas (AAAA-MM-DD): 0
+  [OK   ] Datas duplicadas: 0
+  [OK   ] Quantidade de registros = 30: 0 (30 registros recebidos)
+  [OK   ] Dias do período sem registro: 0
+  [OK   ] Datas fora do período: 0
+  [OK   ] Valores não numéricos em temp_min_c: 0
+  [OK   ] Valores ausentes em temp_min_c: 0 (cobertura 100%; ausentes ficam como NULL, sem troca por zero)
+  [OK   ] Valores não numéricos em temp_max_c: 0
+  [OK   ] Valores ausentes em temp_max_c: 0 (cobertura 100%; ausentes ficam como NULL, sem troca por zero)
+  [OK   ] Valores não numéricos em precip_mm: 0
+  [OK   ] Valores ausentes em precip_mm: 0 (cobertura 100%; ausentes ficam como NULL, sem troca por zero)
+  [OK   ] Temperatura mínima maior que a máxima: 0
+  [OK   ] Precipitação negativa: 0
+  [OK   ] temp_min_c fora de -5 a 45 °C: 0
+  [OK   ] temp_max_c fora de -5 a 45 °C: 0
+  [OK   ] precip_mm fora de 0 a 400 mm: 0
+Banco: dados/observatorio.duckdb | Tabela: clima_diario
+Registros antes da carga: 0 | depois da carga: 30 | novos: 30
+Dias distintos: 30 | Período carregado: 2026-09-26 a 2026-10-25

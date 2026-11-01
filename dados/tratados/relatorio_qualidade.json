@@ -1,0 +1,98 @@
+[
+  {
+    "verificacao": "Datas válidas (AAAA-MM-DD)",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "Datas duplicadas",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "Quantidade de registros = 30",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": "30 registros recebidos"
+  },
+  {
+    "verificacao": "Dias do período sem registro",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "Datas fora do período",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "Valores não numéricos em temp_min_c",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "Valores ausentes em temp_min_c",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": "cobertura 100%; ausentes ficam como NULL, sem troca por zero"
+  },
+  {
+    "verificacao": "Valores não numéricos em temp_max_c",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "Valores ausentes em temp_max_c",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": "cobertura 100%; ausentes ficam como NULL, sem troca por zero"
+  },
+  {
+    "verificacao": "Valores não numéricos em precip_mm",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "Valores ausentes em precip_mm",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": "cobertura 100%; ausentes ficam como NULL, sem troca por zero"
+  },
+  {
+    "verificacao": "Temperatura mínima maior que a máxima",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "Precipitação negativa",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "temp_min_c fora de -5 a 45 °C",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "temp_max_c fora de -5 a 45 °C",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  },
+  {
+    "verificacao": "precip_mm fora de 0 a 400 mm",
+    "problemas": 0,
+    "situacao": "OK",
+    "detalhe": ""
+  }
+]

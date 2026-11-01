@@ -1,0 +1,22 @@
+{
+  "fonte": "Open-Meteo Historical Weather API",
+  "url": "https://archive-api.open-meteo.com/v1/archive?latitude=-22.2139&longitude=-49.9458&start_date=2026-09-26&end_date=2026-10-25&daily=temperature_2m_min%2Ctemperature_2m_max%2Cprecipitation_sum&timezone=America%2FSao_Paulo",
+  "parametros": {
+    "latitude": -22.2139,
+    "longitude": -49.9458,
+    "start_date": "2026-09-26",
+    "end_date": "2026-10-25",
+    "daily": "temperature_2m_min,temperature_2m_max,precipitation_sum",
+    "timezone": "America/Sao_Paulo"
+  },
+  "coletado_em_utc": "2026-11-01T21:51:51+00:00",
+  "status_http": 200,
+  "arquivo": "open_meteo_marilia-sp_2026-09-26_2026-10-25.json",
+  "tamanho_bytes": 1238,
+  "sha256": "fc8a61a81b4225f1ade252937fbedc543605edeeb6a9cd8dfaef966b29c07dbc",
+  "grade_devolvida": {
+    "latitude": -22.249561,
+    "longitude": -49.927673,
+    "elevacao_m": 650.0
+  }
+}

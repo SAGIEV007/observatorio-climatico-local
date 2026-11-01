@@ -1,0 +1,2 @@
+Coleta já existente, nada foi alterado: dados/originais/open_meteo_marilia-sp_2026-09-26_2026-10-25.json
+Para coletar de novo, use: python coleta.py --forcar
