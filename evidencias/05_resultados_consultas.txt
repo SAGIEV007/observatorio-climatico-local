@@ -1,0 +1,46 @@
+Consulta 0 | Conferência da base: registros, cobertura do período e valores ausentes
+ registros  dias_distintos primeiro_dia ultimo_dia  dias_no_intervalo  nulos_temp_min  nulos_temp_max  nulos_precip
+        30              30   2026-09-26 2026-10-25                 30               0               0             0
+
+Consulta 1 | P1: quanto choveu e como a chuva se distribuiu? (KPI 1)
+ chuva_acumulada_mm  dias_com_chuva  dias_chuva_10mm  pct_chuva_10mm  maior_chuva_mm dia_maior_chuva
+              171.5              18                5            62.6            37.0      2026-10-25
+
+Consulta 2 | P2: qual foi o maior período sem chuva relevante? (KPI 2)
+    inicio        fim  dias_secos_consecutivos
+2026-10-17 2026-10-21                        5
+2026-09-26 2026-09-27                        2
+2026-10-07 2026-10-08                        2
+
+Consulta 3 | P3: com que frequência o calor e a variação térmica pediram atenção? (KPI 3)
+ dias_de_calor                                  datas_de_calor  maior_temp_max_c dia_mais_quente  menor_temp_min_c dia_mais_frio  amplitude_media_c
+             7 26/09, 27/09, 28/09, 29/09, 30/09, 08/10, 24/10              33.2      2026-09-29              12.2    2026-10-19                9.2
+
+Consulta 4 | Apoio: resumo por semana (segunda a domingo), base para um boletim ao público
+semana_inicio  dias  chuva_mm  dias_com_chuva  dias_de_calor  media_temp_min_c  media_temp_max_c
+   2026-09-21     2       0.0               0              2              20.5              31.8
+   2026-09-28     7      43.5               5              3              18.5              27.6
+   2026-10-05     7      23.4               5              1              18.7              26.4
+   2026-10-12     7      21.7               4              0              17.0              25.9
+   2026-10-19     7      82.9               4              1              16.3              26.7
+
+Consulta 5 | Evidência: estrutura da tabela carregada
+   column_name column_type null key default extra
+    localidade     VARCHAR   NO PRI    None  None
+          data        DATE   NO PRI    None  None
+      latitude      DOUBLE   NO NaN    None  None
+     longitude      DOUBLE   NO NaN    None  None
+    temp_min_c      DOUBLE  YES NaN    None  None
+    temp_max_c      DOUBLE  YES NaN    None  None
+     precip_mm      DOUBLE  YES NaN    None  None
+arquivo_origem     VARCHAR   NO NaN    None  None
+   coletado_em   TIMESTAMP   NO NaN    None  None
+
+Consulta 6 | Evidência: primeiras linhas da tabela carregada
+localidade       data  temp_min_c  temp_max_c  precip_mm         coletado_em
+Marília-SP 2026-09-26        19.9        31.0        0.0 2026-11-01 21:51:51
+Marília-SP 2026-09-27        21.0        32.6        0.0 2026-11-01 21:51:51
+Marília-SP 2026-09-28        19.4        33.1        1.8 2026-11-01 21:51:51
+Marília-SP 2026-09-29        20.4        33.2        5.2 2026-11-01 21:51:51
+Marília-SP 2026-09-30        19.6        30.3        0.4 2026-11-01 21:51:51
+

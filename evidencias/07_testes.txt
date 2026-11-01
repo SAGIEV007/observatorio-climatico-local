@@ -1,0 +1,24 @@
+test_carga_repetida_nao_duplica (test_projeto.TestBanco.test_carga_repetida_nao_duplica) ... ok
+test_dia_sem_dado_encerra_a_sequencia_de_dias_secos (test_projeto.TestBanco.test_dia_sem_dado_encerra_a_sequencia_de_dias_secos) ... ok
+test_nova_coleta_substitui_o_valor_da_mesma_data (test_projeto.TestBanco.test_nova_coleta_substitui_o_valor_da_mesma_data) ... ok
+test_porcentagem_fica_zero_sem_dia_de_10mm (test_projeto.TestBanco.test_porcentagem_fica_zero_sem_dia_de_10mm) ... ok
+test_tabela_recusa_minima_maior_que_maxima (test_projeto.TestBanco.test_tabela_recusa_minima_maior_que_maxima) ... ok
+test_colunas_de_tamanhos_diferentes_sao_recusadas (test_projeto.TestColeta.test_colunas_de_tamanhos_diferentes_sao_recusadas) ... ok
+test_limite_de_requisicoes_e_tentado_de_novo (test_projeto.TestColeta.test_limite_de_requisicoes_e_tentado_de_novo) ... ok
+test_resposta_incompleta_e_recusada (test_projeto.TestColeta.test_resposta_incompleta_e_recusada) ... ok
+test_arquivo_fora_de_ordem_nao_gera_falso_erro (test_projeto.TestValidacao.test_arquivo_fora_de_ordem_nao_gera_falso_erro) ... ok
+test_chuva_negativa (test_projeto.TestValidacao.test_chuva_negativa) ... ok
+test_dados_corretos_nao_geram_erro_nem_aviso (test_projeto.TestValidacao.test_dados_corretos_nao_geram_erro_nem_aviso) ... ok
+test_data_duplicada (test_projeto.TestValidacao.test_data_duplicada) ... ok
+test_data_invalida (test_projeto.TestValidacao.test_data_invalida) ... ok
+test_dia_faltando (test_projeto.TestValidacao.test_dia_faltando) ... ok
+test_minima_maior_que_maxima (test_projeto.TestValidacao.test_minima_maior_que_maxima) ... ok
+test_poucos_ausentes_geram_aviso_e_nao_viram_zero (test_projeto.TestValidacao.test_poucos_ausentes_geram_aviso_e_nao_viram_zero) ... ok
+test_temperatura_fora_da_faixa (test_projeto.TestValidacao.test_temperatura_fora_da_faixa) ... ok
+test_texto_em_coluna_numerica (test_projeto.TestValidacao.test_texto_em_coluna_numerica) ... ok
+test_variavel_inteira_ausente_interrompe_a_carga (test_projeto.TestValidacao.test_variavel_inteira_ausente_interrompe_a_carga) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 1.021s
+
+OK

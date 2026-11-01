@@ -1,0 +1,23 @@
+# Ambiente virtual
+.venv/
+venv/
+env/
+
+# Arquivos temporários
+__pycache__/
+*.pyc
+*.tmp
+*.wal
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+
+# Informações sensíveis
+.env
+.env.*
+*.key
+*.pem
+credenciais*
+
+# Registros da comunidade (etapas futuras): nunca versionar dados pessoais
+dados/comunidade/
