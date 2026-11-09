@@ -93,6 +93,9 @@ CREATE TABLE IF NOT EXISTS clima_diario (
      ```
      Caso a mesma combinação `(localidade, data)` seja submetida novamente, a linha existente é substituída em vez de gerar duplicação de registros. O número final de registros permanece rigorosamente travado em 30 linhas.
 
+#### Diagrama Vetorial do Modelo Lógico (DuckDB)
+![Modelo Lógico DuckDB](diagramas/modelo_logico_duckdb.svg)
+
 ### 3.2. Fluxo Simples da Solução (Pipeline E2E)
 O pipeline da solução é estritamente determinístico, linear e auditável, estruturado em 6 etapas:
 
@@ -115,6 +118,9 @@ O pipeline da solução é estritamente determinístico, linear e auditável, es
 [ 6. Visualização e Extensão ]   --> Streamlit (app/dashboard_prototipo.py): cards de KPIs, gráficos diários,
                                      tabela de dados interativa, rodapé de limitações e boletim à comunidade
 ```
+
+#### Diagrama Arquitetural do Pipeline de Dados (E2E)
+![Fluxo da Solução E2E](diagramas/fluxo_solucao_arquitetura.svg)
 
 ---
 
@@ -192,6 +198,8 @@ O plano de qualidade foi concebido sob a doutrina *fail-closed*: problemas grave
 ### 5.2. Wireframe do Dashboard Streamlit
 
 O wireframe do painel Streamlit foi projetado visando clareza de leitura, ausência de eixos duplos confusos e facilidade de navegação por produtores e técnicos rurais. O diagrama visual vetorial e a imagem de alta resolução estão preservados em `docs/escopo-1/AE2-2/wireframes/wireframe_streamlit_dashboard.png`.
+
+![Wireframe do Dashboard Streamlit](wireframes/wireframe_streamlit_dashboard.png)
 
 #### Estrutura Visual dos Componentes:
 1. **Barra Lateral (`st.sidebar`):**

@@ -52,6 +52,8 @@ Diagramas arquiteturais disponíveis:
 - [Modelo Lógico do DuckDB](docs/escopo-1/AE2-2/diagramas/modelo_logico_duckdb.svg)
 - [Wireframe do Dashboard Streamlit](docs/escopo-1/AE2-2/wireframes/wireframe_streamlit_dashboard.svg)
 
+![Fluxo da Solução (Pipeline E2E)](docs/escopo-1/AE2-2/diagramas/fluxo_solucao_arquitetura.svg)
+
 ---
 
 ## 4. Dicionário de Dados e Modelo Lógico (DuckDB)
@@ -89,6 +91,8 @@ CREATE TABLE IF NOT EXISTS clima_diario (
 **Relacionamentos e Chaves Estrangeiras:** Nesta versão 1, **não existem chaves estrangeiras nem tabelas secundárias**. A modelagem dimensional em tabela única é a melhor prática para o motor analítico colunar DuckDB, dispensando *joins* dispendiosos e viabilizando varreduras sub-segundo no Streamlit.
 
 **Prevenção de Duplicatas:** A chave primária `(localidade, data)` combinada com a cláusula `INSERT OR REPLACE` garante idempotência rigorosa em reexecuções.
+
+![Modelo Lógico do DuckDB](docs/escopo-1/AE2-2/diagramas/modelo_logico_duckdb.svg)
 
 ---
 
