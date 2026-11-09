@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%" style="background:#ffffff; font-family:'Liberation Sans', Arial, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Título Geral -->
+  <text x="30" y="38" font-size="20" font-weight="bold" fill="#1b1b19">Modelo Lógico — Banco de Dados DuckDB (Versão 1)</text>
+  <text x="30" y="60" font-size="12" fill="#52514e">Projeto: Observatório Climático Local · Arquivo: dados/observatorio.duckdb · Motor: DuckDB (OLAP colunar)</text>
+
+  <!-- Caixa da Entidade clima_diario -->
+  <g filter="url(#shadow)">
+    <!-- Cabeçalho da Tabela -->
+    <rect x="30" y="85" width="510" height="42" rx="6" fill="#1b365d"/>
+    <rect x="30" y="120" width="510" height="7" fill="#1b365d"/>
+    <text x="45" y="112" font-size="16" font-weight="bold" fill="#ffffff">clima_diario</text>
+    <text x="420" y="111" font-size="12" fill="#d1e3ff">Tabela Principal (Fato)</text>
+
+    <!-- Corpo da Tabela -->
+    <rect x="30" y="127" width="510" height="320" rx="0" fill="#ffffff" stroke="#b9b8b1" stroke-width="1"/>
+
+    <!-- Linhas de Atributos -->
+    <!-- Colunas Header -->
+    <rect x="31" y="128" width="508" height="26" fill="#efeee9"/>
+    <text x="45" y="145" font-size="11" font-weight="bold" fill="#3f3e3a">Campo / Nome no Banco</text>
+    <text x="210" y="145" font-size="11" font-weight="bold" fill="#3f3e3a">Tipo DuckDB</text>
+    <text x="310" y="145" font-size="11" font-weight="bold" fill="#3f3e3a">Restrições / Regras</text>
+    <text x="445" y="145" font-size="11" font-weight="bold" fill="#3f3e3a">Papel</text>
+    <line x1="31" y1="154" x2="539" y2="154" stroke="#d3d2cb" stroke-width="1"/>
+
+    <!-- Atributos -->
+    <!-- 1. localidade -->
+    <rect x="31" y="155" width="508" height="30" fill="#f8f9fa"/>
+    <text x="45" y="174" font-family="'Liberation Mono', monospace" font-size="11" font-weight="bold" fill="#1b1b19">localidade</text>
+    <text x="210" y="174" font-family="'Liberation Mono', monospace" font-size="11" fill="#0056b3">VARCHAR</text>
+    <text x="310" y="174" font-size="11" fill="#1b1b19">NOT NULL</text>
+    <rect x="445" y="161" width="38" height="18" rx="3" fill="#eb6834"/>
+    <text x="454" y="174" font-size="10" font-weight="bold" fill="#ffffff">PK 1</text>
+    <line x1="31" y1="185" x2="539" y2="185" stroke="#e4e3dd" stroke-width="1"/>
+
+    <!-- 2. data -->
+    <rect x="31" y="186" width="508" height="30" fill="#ffffff"/>
+    <text x="45" y="205" font-family="'Liberation Mono', monospace" font-size="11" font-weight="bold" fill="#1b1b19">data</text>
+    <text x="210" y="205" font-family="'Liberation Mono', monospace" font-size="11" fill="#0056b3">DATE</text>
+    <text x="310" y="205" font-size="11" fill="#1b1b19">NOT NULL (AAAA-MM-DD)</text>
+    <rect x="445" y="192" width="38" height="18" rx="3" fill="#eb6834"/>
+    <text x="454" y="205" font-size="10" font-weight="bold" fill="#ffffff">PK 2</text>
+    <line x1="31" y1="216" x2="539" y2="216" stroke="#e4e3dd" stroke-width="1"/>
+
+    <!-- 3. latitude -->
+    <rect x="31" y="217" width="508" height="28" fill="#f8f9fa"/>
+    <text x="45" y="235" font-family="'Liberation Mono', monospace" font-size="11" fill="#1b1b19">latitude</text>
+    <text x="210" y="235" font-family="'Liberation Mono', monospace" font-size="11" fill="#0056b3">DOUBLE</text>
+    <text x="310" y="235" font-size="11" fill="#1b1b19">NOT NULL (ex: -22.2139)</text>
+    <text x="445" y="235" font-size="11" fill="#52514e">Atributo</text>
+    <line x1="31" y1="245" x2="539" y2="245" stroke="#e4e3dd" stroke-width="1"/>
+
+    <!-- 4. longitude -->
+    <rect x="31" y="246" width="508" height="28" fill="#ffffff"/>
+    <text x="45" y="264" font-family="'Liberation Mono', monospace" font-size="11" fill="#1b1b19">longitude</text>
+    <text x="210" y="264" font-family="'Liberation Mono', monospace" font-size="11" fill="#0056b3">DOUBLE</text>
+    <text x="310" y="264" font-size="11" fill="#1b1b19">NOT NULL (ex: -49.9458)</text>
+    <text x="445" y="264" font-size="11" fill="#52514e">Atributo</text>
+    <line x1="31" y1="274" x2="539" y2="274" stroke="#e4e3dd" stroke-width="1"/>
+
+    <!-- 5. temp_min_c -->
+    <rect x="31" y="275" width="508" height="28" fill="#f8f9fa"/>
+    <text x="45" y="293" font-family="'Liberation Mono', monospace" font-size="11" fill="#1b1b19">temp_min_c</text>
+    <text x="210" y="293" font-family="'Liberation Mono', monospace" font-size="11" fill="#0056b3">DOUBLE</text>
+    <text x="310" y="293" font-size="11" fill="#1b1b19">CHECK (min &lt;= max)</text>
+    <text x="445" y="293" font-size="11" fill="#52514e">Métrica (°C)</text>
+    <line x1="31" y1="303" x2="539" y2="303" stroke="#e4e3dd" stroke-width="1"/>
+
+    <!-- 6. temp_max_c -->
+    <rect x="31" y="304" width="508" height="28" fill="#ffffff"/>
+    <text x="45" y="322" font-family="'Liberation Mono', monospace" font-size="11" fill="#1b1b19">temp_max_c</text>
+    <text x="210" y="322" font-family="'Liberation Mono', monospace" font-size="11" fill="#0056b3">DOUBLE</text>
+    <text x="310" y="322" font-size="11" fill="#1b1b19">CHECK (max &gt;= min)</text>
+    <text x="445" y="322" font-size="11" fill="#52514e">Métrica (°C)</text>
+    <line x1="31" y1="332" x2="539" y2="332" stroke="#e4e3dd" stroke-width="1"/>
+
+    <!-- 7. precip_mm -->
+    <rect x="31" y="333" width="508" height="28" fill="#f8f9fa"/>
+    <text x="45" y="351" font-family="'Liberation Mono', monospace" font-size="11" fill="#1b1b19">precip_mm</text>
+    <text x="210" y="351" font-family="'Liberation Mono', monospace" font-size="11" fill="#0056b3">DOUBLE</text>
+    <text x="310" y="351" font-size="11" fill="#1b1b19">CHECK (precip_mm &gt;= 0)</text>
+    <text x="445" y="351" font-size="11" fill="#52514e">Métrica (mm)</text>
+    <line x1="31" y1="361" x2="539" y2="361" stroke="#e4e3dd" stroke-width="1"/>
+
+    <!-- 8. arquivo_origem -->
+    <rect x="31" y="362" width="508" height="28" fill="#ffffff"/>
+    <text x="45" y="380" font-family="'Liberation Mono', monospace" font-size="11" fill="#1b1b19">arquivo_origem</text>
+    <text x="210" y="380" font-family="'Liberation Mono', monospace" font-size="11" fill="#0056b3">VARCHAR</text>
+    <text x="310" y="380" font-size="11" fill="#1b1b19">NOT NULL (Auditoria)</text>
+    <text x="445" y="380" font-size="11" fill="#52514e">Linhagem</text>
+    <line x1="31" y1="390" x2="539" y2="390" stroke="#e4e3dd" stroke-width="1"/>
+
+    <!-- 9. coletado_em -->
+    <rect x="31" y="391" width="508" height="28" fill="#f8f9fa"/>
+    <text x="45" y="409" font-family="'Liberation Mono', monospace" font-size="11" fill="#1b1b19">coletado_em</text>
+    <text x="210" y="409" font-family="'Liberation Mono', monospace" font-size="11" fill="#0056b3">TIMESTAMP</text>
+    <text x="310" y="409" font-size="11" fill="#1b1b19">NOT NULL (UTC)</text>
+    <text x="445" y="409" font-size="11" fill="#52514e">Linhagem</text>
+    <rect x="30" y="440" width="510" height="7" rx="0" fill="#ffffff"/>
+  </g>
+
+  <!-- Caixa Explicativa Lateral: Relacionamentos e Idempotência -->
+  <g filter="url(#shadow)">
+    <!-- Painel 1: Chaves & Relacionamentos -->
+    <rect x="560" y="85" width="260" height="175" rx="6" fill="#fdfdfc" stroke="#b9b8b1" stroke-width="1"/>
+    <rect x="560" y="85" width="260" height="30" rx="6" fill="#2a78d6"/>
+    <rect x="560" y="110" width="260" height="5" fill="#2a78d6"/>
+    <text x="575" y="105" font-size="12" font-weight="bold" fill="#ffffff">Relacionamentos &amp; FKs</text>
+    
+    <text x="575" y="132" font-size="11" font-weight="bold" fill="#1b1b19">• Tabela Única (Single Table)</text>
+    <text x="575" y="148" font-size="10.5" fill="#52514e">Nesta versão 1, não há chaves</text>
+    <text x="575" y="162" font-size="10.5" fill="#52514e">estrangeiras (FK) nem tabelas</text>
+    <text x="575" y="176" font-size="10.5" fill="#52514e">adicionais.</text>
+    <text x="575" y="196" font-size="11" font-weight="bold" fill="#1b1b19">• Vantagem Arquitetural:</text>
+    <text x="575" y="210" font-size="10.5" fill="#52514e">DuckDB opera como OLAP colunar;</text>
+    <text x="575" y="224" font-size="10.5" fill="#52514e">tabela única elimina joins caros e</text>
+    <text x="575" y="238" font-size="10.5" fill="#52514e">otimiza varreduras analíticas vetoriais.</text>
+
+    <!-- Painel 2: Prevenção de Duplicatas -->
+    <rect x="560" y="275" width="260" height="172" rx="6" fill="#fdfdfc" stroke="#b9b8b1" stroke-width="1"/>
+    <rect x="560" y="275" width="260" height="30" rx="6" fill="#28a745"/>
+    <rect x="560" y="300" width="260" height="5" fill="#28a745"/>
+    <text x="575" y="295" font-size="12" font-weight="bold" fill="#ffffff">Prevenção de Duplicatas</text>
+    
+    <text x="575" y="322" font-size="11" font-weight="bold" fill="#1b1b19">• Chave Primária Composta:</text>
+    <text x="575" y="337" font-family="'Liberation Mono', monospace" font-size="10" fill="#0056b3">PRIMARY KEY (localidade, data)</text>
+    <text x="575" y="357" font-size="11" font-weight="bold" fill="#1b1b19">• Idempotência na Ingestão:</text>
+    <text x="575" y="372" font-family="'Liberation Mono', monospace" font-size="9.5" fill="#1b1b19">INSERT OR REPLACE INTO</text>
+    <text x="575" y="386" font-family="'Liberation Mono', monospace" font-size="9.5" fill="#1b1b19">clima_diario SELECT ...</text>
+    <text x="575" y="406" font-size="10.5" fill="#52514e">Reexecuções atualizam linhas sem</text>
+    <text x="575" y="420" font-size="10.5" fill="#52514e">duplicação, mantendo 30 registros.</text>
+    <text x="575" y="434" font-size="10.5" fill="#28a745" font-weight="bold">✓ Provado em evidencias/04_carga_repetida.txt</text>
+  </g>
+</svg>

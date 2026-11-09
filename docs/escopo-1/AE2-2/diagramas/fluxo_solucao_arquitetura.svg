@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" width="100%" height="100%" style="background:#ffffff; font-family:'Liberation Sans', Arial, sans-serif;">
+  <defs>
+    <filter id="boxshadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.07"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2a78d6"/>
+    </marker>
+  </defs>
+
+  <!-- Cabeçalho -->
+  <text x="30" y="36" font-size="20" font-weight="bold" fill="#1b1b19">Fluxo da Solução de Dados (Pipeline E2E)</text>
+  <text x="30" y="56" font-size="12" fill="#52514e">Observatório Climático Local · Arquitetura Orientada a Dados: Coleta → Qualidade → DuckDB → SQL → Streamlit</text>
+
+  <!-- Linha 1 de Etapas (1, 2, 3) -->
+  <!-- Etapa 1: Coleta -->
+  <g filter="url(#boxshadow)">
+    <rect x="30" y="80" width="255" height="150" rx="8" fill="#ffffff" stroke="#b9b8b1" stroke-width="1.2"/>
+    <rect x="30" y="80" width="255" height="32" rx="8" fill="#1b365d"/>
+    <rect x="30" y="104" width="255" height="8" fill="#1b365d"/>
+    <text x="42" y="102" font-size="13" font-weight="bold" fill="#ffffff">1. Coleta na Fonte Externa</text>
+    
+    <text x="42" y="130" font-size="11" font-weight="bold" fill="#1b1b19">API Histórica Open-Meteo</text>
+    <text x="42" y="146" font-size="10.5" fill="#52514e">• Python + Requests (HTTP GET)</text>
+    <text x="42" y="161" font-size="10.5" fill="#52514e">• Recorte: Marília-SP (30 dias)</text>
+    <text x="42" y="176" font-size="10.5" fill="#52514e">• Salva dados brutos em JSON original</text>
+    <text x="42" y="191" font-size="10.5" fill="#52514e">• Metadados com hash SHA-256</text>
+    <rect x="42" y="202" width="130" height="18" rx="3" fill="#eef3fc"/>
+    <text x="48" y="215" font-family="'Liberation Mono', monospace" font-size="9.5" fill="#2a78d6">coleta.py</text>
+  </g>
+
+  <!-- Seta 1 -> 2 -->
+  <line x1="285" y1="155" x2="330" y2="155" stroke="#2a78d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Etapa 2: Tratamento & Qualidade -->
+  <g filter="url(#boxshadow)">
+    <rect x="335" y="80" width="255" height="150" rx="8" fill="#ffffff" stroke="#b9b8b1" stroke-width="1.2"/>
+    <rect x="335" y="80" width="255" height="32" rx="8" fill="#2a78d6"/>
+    <rect x="335" y="104" width="255" height="8" fill="#2a78d6"/>
+    <text x="347" y="102" font-size="13" font-weight="bold" fill="#ffffff">2. Tratamento &amp; Validação</text>
+    
+    <text x="347" y="130" font-size="11" font-weight="bold" fill="#1b1b19">Pandas Data Quality Gate</text>
+    <text x="347" y="146" font-size="10.5" fill="#52514e">• Padronização e coerção de tipos</text>
+    <text x="347" y="161" font-size="10.5" fill="#52514e">• 8 checagens estritas (Fail-Closed)</text>
+    <text x="347" y="176" font-size="10.5" fill="#52514e">• Nulos como NULL (sem troca por 0)</text>
+    <text x="347" y="191" font-size="10.5" fill="#52514e">• Gera relatorio_qualidade.json</text>
+    <rect x="347" y="202" width="150" height="18" rx="3" fill="#eef3fc"/>
+    <text x="353" y="215" font-family="'Liberation Mono', monospace" font-size="9.5" fill="#2a78d6">banco.py:validar()</text>
+  </g>
+
+  <!-- Seta 2 -> 3 -->
+  <line x1="590" y1="155" x2="635" y2="155" stroke="#2a78d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Etapa 3: Carga no DuckDB -->
+  <g filter="url(#boxshadow)">
+    <rect x="640" y="80" width="250" height="150" rx="8" fill="#ffffff" stroke="#b9b8b1" stroke-width="1.2"/>
+    <rect x="640" y="80" width="250" height="32" rx="8" fill="#1b365d"/>
+    <rect x="640" y="104" width="250" height="8" fill="#1b365d"/>
+    <text x="652" y="102" font-size="13" font-weight="bold" fill="#ffffff">3. Armazenamento Analítico</text>
+    
+    <text x="652" y="130" font-size="11" font-weight="bold" fill="#1b1b19">DuckDB (Motor OLAP Embutido)</text>
+    <text x="652" y="146" font-size="10.5" fill="#52514e">• Tabela clima_diario (30 linhas)</text>
+    <text x="652" y="161" font-size="10.5" fill="#52514e">• PK composta (localidade, data)</text>
+    <text x="652" y="176" font-size="10.5" fill="#52514e">• INSERT OR REPLACE idempotente</text>
+    <text x="652" y="191" font-size="10.5" fill="#52514e">• CHECKs de limites físicos</text>
+    <rect x="652" y="202" width="165" height="18" rx="3" fill="#eef3fc"/>
+    <text x="658" y="215" font-family="'Liberation Mono', monospace" font-size="9.5" fill="#2a78d6">observatorio.duckdb</text>
+  </g>
+
+  <!-- Conector curvo da Linha 1 para a Linha 2 -->
+  <path d="M 765 230 L 765 260 L 765 275" fill="none" stroke="#2a78d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Linha 2 de Etapas (4, 5, 6) -->
+  <!-- Etapa 4: Consultas SQL & KPIs -->
+  <g filter="url(#boxshadow)">
+    <rect x="640" y="280" width="250" height="150" rx="8" fill="#ffffff" stroke="#b9b8b1" stroke-width="1.2"/>
+    <rect x="640" y="280" width="250" height="32" rx="8" fill="#eb6834"/>
+    <rect x="640" y="304" width="250" height="8" fill="#eb6834"/>
+    <text x="652" y="302" font-size="13" font-weight="bold" fill="#ffffff">4. Análise &amp; Indicadores SQL</text>
+    
+    <text x="652" y="330" font-size="11" font-weight="bold" fill="#1b1b19">Motor SQL Analítico</text>
+    <text x="652" y="346" font-size="10.5" fill="#52514e">• KPI 1: Chuva Acumulada (mm)</text>
+    <text x="652" y="361" font-size="10.5" fill="#52514e">• KPI 2: Sequência Dias Secos</text>
+    <text x="652" y="376" font-size="10.5" fill="#52514e">• KPI 3: Frequência Dias de Calor</text>
+    <text x="652" y="391" font-size="10.5" fill="#52514e">• Resumo Semanal (DATE_TRUNC)</text>
+    <rect x="652" y="402" width="130" height="18" rx="3" fill="#fdf2ed"/>
+    <text x="658" y="415" font-family="'Liberation Mono', monospace" font-size="9.5" fill="#eb6834">consultas.sql</text>
+  </g>
+
+  <!-- Seta 4 -> 5 (sentido para a esquerda) -->
+  <line x1="640" y1="355" x2="595" y2="355" stroke="#2a78d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Etapa 5: Dashboard Streamlit -->
+  <g filter="url(#boxshadow)">
+    <rect x="335" y="280" width="255" height="150" rx="8" fill="#ffffff" stroke="#b9b8b1" stroke-width="1.2"/>
+    <rect x="335" y="280" width="255" height="32" rx="8" fill="#28a745"/>
+    <rect x="335" y="304" width="255" height="8" fill="#28a745"/>
+    <text x="347" y="302" font-size="13" font-weight="bold" fill="#ffffff">5. Apresentação (Streamlit)</text>
+    
+    <text x="347" y="330" font-size="11" font-weight="bold" fill="#1b1b19">Interface Web Interativa</text>
+    <text x="347" y="346" font-size="10.5" fill="#52514e">• 3 Cards de Métricas (st.metric)</text>
+    <text x="347" y="361" font-size="10.5" fill="#52514e">• 2 Gráficos de Alta Retenção</text>
+    <text x="347" y="376" font-size="10.5" fill="#52514e">• Tabela Dinâmica e Resumo</text>
+    <text x="347" y="391" font-size="10.5" fill="#52514e">• Conexão read-only ao DuckDB</text>
+    <rect x="347" y="402" width="155" height="18" rx="3" fill="#eaf6ec"/>
+    <text x="353" y="415" font-family="'Liberation Mono', monospace" font-size="9.5" fill="#28a745">app/dashboard.py</text>
+  </g>
+
+  <!-- Seta 5 -> 6 (sentido para a esquerda) -->
+  <line x1="335" y1="355" x2="290" y2="355" stroke="#2a78d6" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Etapa 6: Comunicação Extensionista -->
+  <g filter="url(#boxshadow)">
+    <rect x="30" y="280" width="255" height="150" rx="8" fill="#ffffff" stroke="#b9b8b1" stroke-width="1.2"/>
+    <rect x="30" y="280" width="255" height="32" rx="8" fill="#6f42c1"/>
+    <rect x="30" y="304" width="255" height="8" fill="#6f42c1"/>
+    <text x="42" y="302" font-size="13" font-weight="bold" fill="#ffffff">6. Extensão &amp; Comunidade</text>
+    
+    <text x="42" y="330" font-size="11" font-weight="bold" fill="#1b1b19">Pequenos Agricultores Familiares</text>
+    <text x="42" y="346" font-size="10.5" fill="#52514e">• Boletim Semanal Agroclimático</text>
+    <text x="42" y="361" font-size="10.5" fill="#52514e">• Linguagem Clara (Sem Hermetismo)</text>
+    <text x="42" y="376" font-size="10.5" fill="#52514e">• Comunicação Explícita de Limites</text>
+    <text x="42" y="391" font-size="10.5" fill="#52514e">• Salvaguarda Ética e LGPD</text>
+    <rect x="42" y="402" width="165" height="18" rx="3" fill="#f4effc"/>
+    <text x="48" y="415" font-family="'Liberation Mono', monospace" font-size="9.5" fill="#6f42c1">Boletim Extensionista</text>
+  </g>
+</svg>

@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="100%" height="100%" style="background:#f0f2f6; font-family:'Liberation Sans', Arial, sans-serif;">
+  <defs>
+    <filter id="wfshadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="3" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Moldura da Janela do Navegador / Streamlit -->
+  <rect x="15" y="15" width="970" height="650" rx="8" fill="#ffffff" stroke="#d3d2cb" stroke-width="1.5" filter="url(#wfshadow)"/>
+  
+  <!-- Barra de Topo do Navegador -->
+  <rect x="15" y="15" width="970" height="34" rx="8" fill="#e9ecef"/>
+  <rect x="15" y="43" width="970" height="6" fill="#e9ecef"/>
+  <!-- Botões de Janela -->
+  <circle cx="35" cy="32" r="5" fill="#ff5f56"/>
+  <circle cx="50" cy="32" r="5" fill="#ffbd2e"/>
+  <circle cx="65" cy="32" r="5" fill="#27c93f"/>
+  <!-- Barra de URL -->
+  <rect x="90" y="23" width="550" height="18" rx="4" fill="#ffffff" stroke="#ced4da" stroke-width="1"/>
+  <text x="100" y="36" font-family="'Liberation Mono', monospace" font-size="10.5" fill="#495057">http://localhost:8501 · Observatório Climático Local — Marília-SP (Streamlit)</text>
+
+  <!-- Layout Principal: Sidebar (Esquerda) e Main Content (Direita) -->
+
+  <!-- ==================== SIDEBAR STREAMLIT ==================== -->
+  <rect x="16" y="49" width="220" height="615" fill="#f8f9fa" stroke="#e4e3dd" stroke-width="1"/>
+  
+  <!-- Conteúdo da Sidebar -->
+  <text x="30" y="80" font-size="13" font-weight="bold" fill="#1b1b19">⚙️ Painel de Configuração</text>
+  
+  <text x="30" y="105" font-size="10.5" font-weight="bold" fill="#3f3e3a">Localidade Selecionada</text>
+  <rect x="30" y="112" width="190" height="26" rx="4" fill="#ffffff" stroke="#ced4da" stroke-width="1"/>
+  <text x="38" y="129" font-size="11" fill="#1b1b19">Marília-SP (Sede)</text>
+
+  <text x="30" y="155" font-size="10" fill="#6c757d">Lat: -22.2139 | Lon: -49.9458</text>
+  <text x="30" y="168" font-size="10" fill="#6c757d">Grade API: 650 m de elevação</text>
+
+  <line x1="30" y1="180" x2="220" y2="180" stroke="#e4e3dd" stroke-width="1"/>
+
+  <text x="30" y="200" font-size="10.5" font-weight="bold" fill="#3f3e3a">Intervalo do Recorte (30 dias)</text>
+  <rect x="30" y="207" width="190" height="26" rx="4" fill="#ffffff" stroke="#ced4da" stroke-width="1"/>
+  <text x="38" y="224" font-size="10.5" fill="#1b1b19">26/09/2026 - 25/10/2026</text>
+
+  <text x="30" y="255" font-size="10.5" font-weight="bold" fill="#3f3e3a">Limiar de Calor Excessivo (°C)</text>
+  <rect x="30" y="263" width="190" height="6" rx="3" fill="#dee2e6"/>
+  <rect x="30" y="263" width="130" height="6" rx="3" fill="#eb6834"/>
+  <circle cx="160" cy="266" r="6" fill="#eb6834"/>
+  <text x="30" y="282" font-size="10" fill="#495057">Valor selecionado: <tspan font-weight="bold">30.0 °C</tspan></text>
+
+  <text x="30" y="308" font-size="10.5" font-weight="bold" fill="#3f3e3a">Limiar de Chuva Relevante (mm)</text>
+  <rect x="30" y="316" width="190" height="6" rx="3" fill="#dee2e6"/>
+  <rect x="30" y="316" width="50" height="6" rx="3" fill="#2a78d6"/>
+  <circle cx="80" cy="319" r="6" fill="#2a78d6"/>
+  <text x="30" y="335" font-size="10" fill="#495057">Valor selecionado: <tspan font-weight="bold">1.0 mm</tspan></text>
+
+  <line x1="30" y1="350" x2="220" y2="350" stroke="#e4e3dd" stroke-width="1"/>
+
+  <text x="30" y="375" font-size="10.5" font-weight="bold" fill="#3f3e3a">Motor de Banco de Dados</text>
+  <text x="30" y="392" font-size="10" fill="#28a745">● DuckDB 2.0 (Conectado)</text>
+  <text x="30" y="406" font-size="9.5" fill="#6c757d">Modo: read-only | 30 registros</text>
+  <text x="30" y="420" font-size="9.5" fill="#6c757d">Hash JSON: fc8a61a8... (OK)</text>
+
+  <rect x="30" y="440" width="190" height="30" rx="4" fill="#2a78d6"/>
+  <text x="65" y="460" font-size="11" font-weight="bold" fill="#ffffff">📥 Baixar Dados (CSV)</text>
+
+  <rect x="30" y="480" width="190" height="30" rx="4" fill="#ffffff" stroke="#2a78d6" stroke-width="1.2"/>
+  <text x="60" y="500" font-size="11" font-weight="bold" fill="#2a78d6">📄 Gerar Boletim (PDF)</text>
+
+  <!-- ==================== ÁREA PRINCIPAL (MAIN) ==================== -->
+  
+  <!-- 1. Cabeçalho Principal -->
+  <text x="255" y="80" font-size="18" font-weight="bold" fill="#1b1b19">Observatório Climático Local: Marília-SP</text>
+  <text x="255" y="98" font-size="11.5" fill="#495057">Diagnóstico histórico e indicadores agroclimáticos para a agricultura familiar regional (26/09/2026 a 25/10/2026)</text>
+  <line x1="255" y1="108" x2="965" y2="108" stroke="#e4e3dd" stroke-width="1"/>
+
+  <!-- 2. Linha de KPIs (3 Indicadores) -->
+  <!-- Card KPI 1 -->
+  <g filter="url(#wfshadow)">
+    <rect x="255" y="118" width="225" height="74" rx="6" fill="#ffffff" stroke="#b9b8b1" stroke-width="1"/>
+    <text x="267" y="136" font-size="10.5" font-weight="bold" fill="#2a78d6">KPI 1 · CHUVA ACUMULADA</text>
+    <text x="267" y="163" font-size="22" font-weight="bold" fill="#1b1b19">171,5 mm</text>
+    <text x="267" y="180" font-size="10" fill="#28a745">▲ 18 dias com chuva | 5 dias ≥ 10mm</text>
+  </g>
+
+  <!-- Card KPI 2 -->
+  <g filter="url(#wfshadow)">
+    <rect x="495" y="118" width="225" height="74" rx="6" fill="#ffffff" stroke="#b9b8b1" stroke-width="1"/>
+    <text x="507" y="136" font-size="10.5" font-weight="bold" fill="#6c757d">KPI 2 · MAIOR SEQUÊNCIA SECA</text>
+    <text x="507" y="163" font-size="22" font-weight="bold" fill="#1b1b19">5 dias</text>
+    <text x="507" y="180" font-size="10" fill="#e07a5f">Período: 17/10 a 21/10 (&lt; 1mm/dia)</text>
+  </g>
+
+  <!-- Card KPI 3 -->
+  <g filter="url(#wfshadow)">
+    <rect x="735" y="118" width="230" height="74" rx="6" fill="#ffffff" stroke="#b9b8b1" stroke-width="1"/>
+    <text x="747" y="136" font-size="10.5" font-weight="bold" fill="#eb6834">KPI 3 · DIAS DE CALOR (≥ 30 °C)</text>
+    <text x="747" y="163" font-size="22" font-weight="bold" fill="#1b1b19">7 dias <tspan font-size="14" fill="#6c757d">(23,3%)</tspan></text>
+    <text x="747" y="180" font-size="10" fill="#eb6834">Pico: 33,2 °C em 29/09 | 5 dias seguidos</text>
+  </g>
+
+  <!-- 3. Seção de Gráficos (2 Painéis) -->
+  <!-- Gráfico 1: Temperatura -->
+  <g filter="url(#wfshadow)">
+    <rect x="255" y="202" width="710" height="150" rx="6" fill="#ffffff" stroke="#b9b8b1" stroke-width="1"/>
+    <text x="267" y="220" font-size="11.5" font-weight="bold" fill="#1b1b19">Gráfico 1: Variação Térmica Diária — Mínima e Máxima a 2m (°C)</text>
+    <rect x="830" y="211" width="12" height="10" rx="2" fill="#eb6834"/>
+    <text x="846" y="220" font-size="9.5" fill="#52514e">Máxima ≥ 30 °C</text>
+    
+    <!-- Linhas de Grade e Eixo -->
+    <line x1="285" y1="235" x2="950" y2="235" stroke="#e4e3dd" stroke-width="1"/>
+    <text x="275" y="238" font-size="9" fill="#6c757d" text-anchor="end">35°C</text>
+    <line x1="285" y1="260" x2="950" y2="260" stroke="#eb6834" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="275" y="263" font-size="9" font-weight="bold" fill="#eb6834" text-anchor="end">30°C</text>
+    <line x1="285" y1="290" x2="950" y2="290" stroke="#e4e3dd" stroke-width="1"/>
+    <text x="275" y="293" font-size="9" fill="#6c757d" text-anchor="end">20°C</text>
+    <line x1="285" y1="320" x2="950" y2="320" stroke="#e4e3dd" stroke-width="1"/>
+    <text x="275" y="323" font-size="9" fill="#6c757d" text-anchor="end">10°C</text>
+
+    <!-- Simulação de Barras / Faixas de Temperatura -->
+    <!-- Primeiros 5 dias quentes (laranja) -->
+    <rect x="300" y="247" width="14" height="60" rx="3" fill="#eb6834" opacity="0.9"/>
+    <rect x="320" y="245" width="14" height="62" rx="3" fill="#eb6834" opacity="0.9"/>
+    <rect x="340" y="243" width="14" height="65" rx="3" fill="#eb6834" opacity="0.9"/>
+    <rect x="360" y="240" width="14" height="68" rx="3" fill="#eb6834" opacity="0.9"/>
+    <rect x="380" y="248" width="14" height="60" rx="3" fill="#eb6834" opacity="0.9"/>
+
+    <!-- Dias amenos seguintes (cinza neutro) -->
+    <rect x="400" y="268" width="14" height="48" rx="3" fill="#b4b3ac"/>
+    <rect x="420" y="272" width="14" height="45" rx="3" fill="#b4b3ac"/>
+    <rect x="440" y="266" width="14" height="50" rx="3" fill="#b4b3ac"/>
+    <rect x="460" y="269" width="14" height="48" rx="3" fill="#b4b3ac"/>
+    <rect x="480" y="274" width="14" height="44" rx="3" fill="#b4b3ac"/>
+    <rect x="500" y="276" width="14" height="43" rx="3" fill="#b4b3ac"/>
+    <rect x="520" y="271" width="14" height="46" rx="3" fill="#b4b3ac"/>
+    <rect x="540" y="248" width="14" height="58" rx="3" fill="#eb6834" opacity="0.9"/>
+    <rect x="560" y="275" width="14" height="42" rx="3" fill="#b4b3ac"/>
+    <rect x="580" y="278" width="14" height="40" rx="3" fill="#b4b3ac"/>
+    <rect x="600" y="280" width="14" height="38" rx="3" fill="#b4b3ac"/>
+    <rect x="620" y="279" width="14" height="39" rx="3" fill="#b4b3ac"/>
+    <rect x="640" y="282" width="14" height="37" rx="3" fill="#b4b3ac"/>
+    <rect x="660" y="285" width="14" height="48" rx="3" fill="#b4b3ac"/>
+    <rect x="680" y="283" width="14" height="45" rx="3" fill="#b4b3ac"/>
+    <rect x="700" y="279" width="14" height="47" rx="3" fill="#b4b3ac"/>
+    <rect x="720" y="274" width="14" height="50" rx="3" fill="#b4b3ac"/>
+    <rect x="740" y="270" width="14" height="52" rx="3" fill="#b4b3ac"/>
+    <rect x="760" y="275" width="14" height="48" rx="3" fill="#b4b3ac"/>
+    <rect x="780" y="268" width="14" height="53" rx="3" fill="#b4b3ac"/>
+    <rect x="800" y="247" width="14" height="60" rx="3" fill="#eb6834" opacity="0.9"/>
+    <rect x="820" y="276" width="14" height="45" rx="3" fill="#b4b3ac"/>
+
+    <text x="330" y="235" font-size="8.5" fill="#eb6834" font-weight="bold">33,2 °C (Pico)</text>
+    <text x="660" y="342" font-size="8.5" fill="#2a78d6" font-weight="bold">12,2 °C (Mínima)</text>
+    <text x="290" y="342" font-size="9" fill="#6c757d">26/09</text>
+    <text x="500" y="342" font-size="9" fill="#6c757d">06/10</text>
+    <text x="700" y="342" font-size="9" fill="#6c757d">16/10</text>
+    <text x="910" y="342" font-size="9" fill="#6c757d">25/10</text>
+  </g>
+
+  <!-- Gráfico 2: Chuva Diária -->
+  <g filter="url(#wfshadow)">
+    <rect x="255" y="360" width="710" height="130" rx="6" fill="#ffffff" stroke="#b9b8b1" stroke-width="1"/>
+    <text x="267" y="377" font-size="11.5" font-weight="bold" fill="#1b1b19">Gráfico 2: Precipitação Diária Acumulada (mm)</text>
+    <line x1="285" y1="395" x2="950" y2="395" stroke="#e4e3dd" stroke-width="1"/>
+    <text x="275" y="398" font-size="9" fill="#6c757d" text-anchor="end">40mm</text>
+    <line x1="285" y1="435" x2="950" y2="435" stroke="#2a78d6" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="275" y="438" font-size="9" font-weight="bold" fill="#2a78d6" text-anchor="end">10mm</text>
+    <line x1="285" y1="465" x2="950" y2="465" stroke="#1b1b19" stroke-width="1"/>
+    <text x="275" y="468" font-size="9" fill="#6c757d" text-anchor="end">0mm</text>
+
+    <!-- Barras de Chuva -->
+    <rect x="340" y="460" width="14" height="5" fill="#2a78d6"/>
+    <rect x="360" y="452" width="14" height="13" fill="#2a78d6"/>
+    <rect x="420" y="440" width="14" height="25" fill="#2a78d6"/>
+    <rect x="440" y="445" width="14" height="20" fill="#2a78d6"/>
+    <rect x="460" y="455" width="14" height="10" fill="#2a78d6"/>
+    <rect x="520" y="442" width="14" height="23" fill="#2a78d6"/>
+    <!-- Sequência de 5 dias secos -->
+    <rect x="680" y="465" width="94" height="2" fill="#eb6834"/>
+    <text x="700" y="460" font-size="8.5" fill="#eb6834" font-weight="bold">5 dias secos</text>
+    <!-- Concentração final (22 a 25/10) -->
+    <rect x="780" y="438" width="14" height="27" fill="#2a78d6"/>
+    <rect x="800" y="420" width="14" height="45" fill="#2a78d6"/>
+    <rect x="820" y="415" width="14" height="50" fill="#2a78d6"/>
+    <rect x="840" y="400" width="14" height="65" fill="#1b365d"/>
+    <text x="830" y="394" font-size="8.5" fill="#1b365d" font-weight="bold">37,0 mm</text>
+  </g>
+
+  <!-- 4. Tabela de Dados e Resumo Semanal (Prévia) -->
+  <g filter="url(#wfshadow)">
+    <rect x="255" y="498" width="710" height="92" rx="6" fill="#ffffff" stroke="#b9b8b1" stroke-width="1"/>
+    <text x="267" y="514" font-size="11" font-weight="bold" fill="#1b1b19">Resumo Semanal Agregado (Apoio à Extensão Agronômica)</text>
+    <!-- Cabeçalho Tabela -->
+    <rect x="267" y="522" width="686" height="18" fill="#efeee9"/>
+    <text x="275" y="534" font-size="9.5" font-weight="bold" fill="#3f3e3a">Semana Início</text>
+    <text x="390" y="534" font-size="9.5" font-weight="bold" fill="#3f3e3a">Dias</text>
+    <text x="460" y="534" font-size="9.5" font-weight="bold" fill="#3f3e3a">Chuva Total (mm)</text>
+    <text x="590" y="534" font-size="9.5" font-weight="bold" fill="#3f3e3a">Dias c/ Chuva</text>
+    <text x="710" y="534" font-size="9.5" font-weight="bold" fill="#3f3e3a">Dias de Calor</text>
+    <text x="830" y="534" font-size="9.5" font-weight="bold" fill="#3f3e3a">Média T. Máx (°C)</text>
+
+    <!-- Linha 1 -->
+    <text x="275" y="552" font-family="'Liberation Mono', monospace" font-size="9" fill="#1b1b19">2026-09-28</text>
+    <text x="390" y="552" font-size="9" fill="#1b1b19">7</text>
+    <text x="460" y="552" font-size="9" font-weight="bold" fill="#2a78d6">43,5 mm</text>
+    <text x="590" y="552" font-size="9" fill="#1b1b19">5</text>
+    <text x="710" y="552" font-size="9" font-weight="bold" fill="#eb6834">3</text>
+    <text x="830" y="552" font-size="9" fill="#1b1b19">27,6 °C</text>
+
+    <!-- Linha 2 -->
+    <text x="275" y="572" font-family="'Liberation Mono', monospace" font-size="9" fill="#1b1b19">2026-10-19</text>
+    <text x="390" y="572" font-size="9" fill="#1b1b19">7</text>
+    <text x="460" y="572" font-size="9" font-weight="bold" fill="#2a78d6">82,9 mm</text>
+    <text x="590" y="572" font-size="9" fill="#1b1b19">4</text>
+    <text x="710" y="572" font-size="9" fill="#1b1b19">1</text>
+    <text x="830" y="572" font-size="9" fill="#1b1b19">26,7 °C</text>
+  </g>
+
+  <!-- 5. Rodapé: Fonte, Licença e Caixa Expansível de Limitações -->
+  <rect x="255" y="598" width="710" height="56" rx="4" fill="#fafaf7" stroke="#e4e3dd" stroke-width="1"/>
+  <text x="267" y="614" font-size="10" font-weight="bold" fill="#1b1b19">ℹ️ Fonte dos Dados &amp; Salvaguarda Extensionista:</text>
+  <text x="267" y="628" font-size="9" fill="#52514e">Dados de reanálise Open-Meteo (grade 4,4 km de Marília, elevação 650m, licença CC BY 4.0). Valores históricos com fins de diagnóstico.</text>
+  <text x="267" y="642" font-size="9" font-weight="bold" fill="#c92a2a">⚠️ ATENÇÃO: Análise histórica não é previsão do tempo. Para decisões de plantio e pulverização, consulte a assistência técnica (CATI/CDR) e previsões do INMET.</text>
+</svg>

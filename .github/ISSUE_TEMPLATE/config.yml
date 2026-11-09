@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentação do Observatório Climático Local
+    url: https://github.com/SAGIEV007/observatorio-climatico-local/tree/main/docs/escopo-1/AE2-2
+    about: Consulte o desenho técnico e os relatórios da solução antes de abrir uma nova issue.
