@@ -13,6 +13,7 @@
 |---|---|---|---|
 | **AE2** | Coleta, tratamento, carga no DuckDB e análise inicial | [docs/escopo-1/AE2](docs/escopo-1/AE2/Relatorio_AE2_Observatorio_Climatico_Local.pdf) | Execuções e evidências registradas em `evidencias/` |
 | **AE2-2** | Desenho da solução de dados — pré-implementação | [docs/escopo-1/AE2-2](docs/escopo-1/AE2-2/Relatorio_AE2-2_Observatorio_Climatico_Local.pdf) | [Relatório Completo em Markdown](docs/escopo-1/AE2-2/Relatorio_AE2-2_Observatorio_Climatico_Local.md) · [Roadmap de Issues](docs/escopo-1/AE2-2/ISSUES.md) |
+| **RLF** | Relatório Final: implementação, painel, boletim e devolutiva | [docs/final](docs/final/) | [Boletim (PDF)](docs/final/boletim_marilia.pdf) · [Prints do painel](docs/final/prints/) |
 
 ---
 
@@ -44,8 +45,8 @@ A arquitetura do Observatório Climático Local organiza-se em um pipeline modul
 2. **Tratamento e Qualidade (`banco.py`):** Padronização de colunas, coerção de tipos via `pandas` e execução do *Data Quality Gate* com 8 checagens formais sob diretriz *fail-closed*. Gera `relatorio_qualidade.json`.
 3. **Armazenamento Analítico (`banco.py`):** Ingestão no DuckDB na tabela `clima_diario` com chave primária composta `(localidade, data)` e restrições `CHECK`, aplicando carga idempotente (`INSERT OR REPLACE`).
 4. **Camada Analítica SQL (`consultas.sql`):** Consultas otimizadas para conferência de integridade e cálculo dos 3 KPIs principais e do resumo semanal.
-5. **Apresentação e Visualização (`app/dashboard_prototipo.py`):** Interface web interativa em Streamlit conectada em modo somente leitura ao DuckDB, com cards de métricas, gráficos temporais e tabela interativa.
-6. **Comunicação Extensionista:** Geração do Boletim Agroclimático Semanal em linguagem desmistificada, com comunicação explícita de limitações e conformidade com a LGPD.
+5. **Indicadores e Apresentação (`indicadores.py` + `app/dashboard.py`):** Os KPIs são calculados em um único módulo Python, conferido contra as consultas SQL por teste automático. O painel Streamlit lê o DuckDB em modo somente leitura e traz cartões, gráficos, resumo semanal, checagens de qualidade, boletim e tabela completa, com filtros de limiar.
+6. **Comunicação Extensionista (`boletim.py`):** Gera o Boletim Agroclimático de uma página (HTML e PDF) em linguagem simples, com os avisos de limitação, usado na devolutiva ao público.
 
 Diagramas arquiteturais disponíveis:
 - [Fluxo da Solução (Pipeline E2E)](docs/escopo-1/AE2-2/diagramas/fluxo_solucao_arquitetura.svg)
@@ -121,13 +122,13 @@ CREATE TABLE IF NOT EXISTS clima_diario (
 
 ---
 
-## 7. Wireframe do Dashboard Streamlit
+## 7. Painel em Streamlit
 
-O wireframe da interface interativa Streamlit organiza os dados em cards executivos, gráficos analíticos sincronizados e tabela completa, priorizando clareza em computadores e celulares:
+O painel final (`app/dashboard.py`) implementa o wireframe da AE2-2. Nenhum número é digitado à mão: cartões, legendas e boletim saem de `indicadores.py`, e os filtros de limiar (chuva e calor) recalculam as contagens.
 
-![Wireframe do Dashboard Streamlit](docs/escopo-1/AE2-2/wireframes/wireframe_streamlit_dashboard.png)
+![Painel no computador](docs/final/prints/painel_computador.png)
 
-Um protótipo executável do painel está disponível em [`app/dashboard_prototipo.py`](app/dashboard_prototipo.py).
+Abas: **Gráficos**, **Por semana**, **Qualidade dos dados** (as 16 checagens da carga), **Boletim** e **Tabela completa**. Wireframe original: [docs/escopo-1/AE2-2/wireframes](docs/escopo-1/AE2-2/wireframes/wireframe_streamlit_dashboard.png).
 
 ---
 
@@ -152,8 +153,9 @@ observatorio-climatico-local/
 │   └── ISSUE_TEMPLATE/
 │       ├── config.yml                                        # Configuração de issues
 │       └── tarefa-implementacao.md                           # Template padronizado de tarefa
+├── .streamlit/config.toml                                    # Configuração do painel
 ├── app/
-│   └── dashboard_prototipo.py                                # Protótipo executável em Streamlit
+│   └── dashboard.py                                          # Painel final em Streamlit
 ├── dados/
 │   ├── originais/
 │   │   ├── open_meteo_marilia-sp_2026-09-26_2026-10-25.json      # Resposta bruta original da API
@@ -163,6 +165,9 @@ observatorio-climatico-local/
 │   │   └── relatorio_qualidade.json                          # Relatório de auditoria de qualidade
 │   └── observatorio.duckdb                                   # Banco colunar DuckDB (clima_diario)
 ├── docs/
+│   ├── final/
+│   │   ├── boletim_marilia.pdf / .html                       # Boletim da devolutiva (gerado por boletim.py)
+│   │   └── prints/                                           # Prints reais do painel
 │   └── escopo-1/
 │       ├── AE2/
 │       │   └── Relatorio_AE2_Observatorio_Climatico_Local.pdf  # Relatório da etapa anterior
@@ -184,8 +189,10 @@ observatorio-climatico-local/
 │               ├── 05_dashboard_interativo_streamlit.md
 │               └── 06_comunicacao_extensionista_boletim.md
 ├── evidencias/                                               # Logs e saídas reais de execução
-├── testes/                                                   # Testes unitários automatizados (19 testes)
+├── testes/                                                   # 33 testes automatizados (carga, indicadores, painel)
 ├── banco.py                                                  # Módulo de validação, qualidade e carga DuckDB
+├── indicadores.py                                            # KPIs usados pelo painel e pelo boletim
+├── boletim.py                                                # Gera o boletim de uma página
 ├── coleta.py                                                 # Ingestão da API com preservação de JSON bruto
 ├── config.py                                                 # Configuração do recorte e caminhos
 ├── consultas.sql                                             # Consultas analíticas SQL
@@ -216,14 +223,12 @@ pip install -r requirements.txt
 python coleta.py                 # 1. Ingestão da API e preservação do JSON bruto
 python banco.py                  # 2. Tratamento, validação e carga no DuckDB
 python executar_consultas.py     # 3. Execução das consultas analíticas SQL
-python -m unittest discover -s testes   # 4. Execução dos testes automatizados (19 testes)
+python boletim.py                # 4. Gera o boletim em docs/final/ (PDF se houver Chrome/Chromium)
+python -m unittest discover -s testes   # 5. Testes automatizados (33 testes)
+streamlit run app/dashboard.py   # 6. Abre o painel em http://localhost:8501
 ```
 
-Para executar o protótipo do painel interativo (opcional):
-```bash
-pip install streamlit
-streamlit run app/dashboard_prototipo.py
-```
+O repositório já traz o JSON original e o banco carregado: para só ver os resultados, basta `pip install -r requirements.txt` e o passo 6. `python coleta.py` não baixa de novo se o arquivo original já existir (use `--forcar` para refazer a coleta).
 
 ---
 
