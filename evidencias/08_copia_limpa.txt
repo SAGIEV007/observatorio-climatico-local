@@ -1,5 +1,5 @@
-Execução em cópia limpa (git clone + venv novo + pip install -r requirements.txt), banco apagado antes, em 2026-11-25T17:14:54Z UTC
-== copia limpa: 4723310 feat: painel final, indicadores testados e boletim da devolutiva (Relatório Final)
+Execução em cópia limpa (git clone + venv novo + pip install -r requirements.txt), banco apagado antes, em 2026-11-25T17:24:33Z UTC
+== copia limpa: 96ed207 fix: ausentes não viram zero, boletim só diz 'concentrada' quando é verdade, concordância com SQL ampliada
 Coleta já existente, nada foi alterado: dados/originais/open_meteo_marilia-sp_2026-09-26_2026-10-25.json
 Para coletar de novo, use: python coleta.py --forcar
 Banco: dados/observatorio.duckdb | Tabela: clima_diario
@@ -11,6 +11,6 @@ Dias distintos: 30 | Período carregado: 2026-09-26 a 2026-10-25
 Consulta 1 | P1: quanto choveu e como a chuva se distribuiu? (KPI 1)
 HTML: docs/final/boletim_marilia.html
 PDF:  docs/final/boletim_marilia.pdf
-Ran 33 tests in 4.044s
+Ran 41 tests in 3.126s
 
 OK
