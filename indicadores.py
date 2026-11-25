@@ -36,10 +36,10 @@ class Indicadores:
     ultimo_dia: pd.Timestamp
     limiar_chuva: float
     limiar_calor: float
-    chuva_total_mm: float
+    chuva_total_mm: float | None
     dias_com_chuva: int
     dias_chuva_intensa: int
-    pct_chuva_intensa: float
+    pct_chuva_intensa: float | None
     maior_chuva_mm: float | None
     dia_maior_chuva: pd.Timestamp | None
     dias_sem_dado_chuva: int
@@ -90,6 +90,15 @@ def maior_sequencia(df: pd.DataFrame, condicao: pd.Series) -> Sequencia:
     return melhor
 
 
+def _soma(serie: pd.Series) -> float | None:
+    """Soma arredondada; sem nenhum valor presente devolve None (ausente não vira zero)."""
+    return None if serie.notna().sum() == 0 else round(float(serie.sum(skipna=True)), 1)
+
+
+def _media(serie: pd.Series) -> float | None:
+    return None if serie.notna().sum() == 0 else round(float(serie.mean(skipna=True)), 1)
+
+
 def _extremo(df: pd.DataFrame, coluna: str, maior: bool) -> tuple[float | None, pd.Timestamp | None]:
     validos = df.dropna(subset=[coluna])
     if validos.empty:
@@ -108,10 +117,14 @@ def calcular(
     if df.empty:
         raise ValueError("base vazia: nada para calcular")
     chuva = df["precip_mm"]
-    chuva_total = round(float(chuva.sum(skipna=True)), 1)
+    chuva_total = _soma(chuva)
     chuva_intensa = float(chuva[chuva >= limiar_intensa].sum(skipna=True))
-    pct = round(100.0 * chuva_intensa / chuva_total, 1) if chuva_total > 0 else 0.0
-    maior_chuva, dia_maior_chuva = _extremo(df, "precip_mm", maior=True)
+    if chuva_total is None:
+        pct = None
+    else:
+        pct = round(100.0 * chuva_intensa / chuva_total, 1) if chuva_total > 0 else 0.0
+    # Como na Consulta 1 (FILTER precip_mm > 0): sem chuva não existe "maior chuva".
+    maior_chuva, dia_maior_chuva = _extremo(df[chuva > 0], "precip_mm", maior=True)
     maxima, dia_quente = _extremo(df, "temp_max_c", maior=True)
     minima, dia_frio = _extremo(df, "temp_min_c", maior=False)
     amplitude = (df["temp_max_c"] - df["temp_min_c"]).mean(skipna=True)
@@ -149,17 +162,17 @@ def resumo_semanal(
         de=("data", "min"),
         ate=("data", "max"),
         dias=("data", "count"),
-        chuva_mm=("precip_mm", lambda s: round(float(s.sum(skipna=True)), 1)),
+        chuva_mm=("precip_mm", _soma),
         dias_com_chuva=("precip_mm", lambda s: int((s >= limiar_chuva).sum())),
         dias_de_calor=("temp_max_c", lambda s: int((s >= limiar_calor).sum())),
-        media_minima_c=("temp_min_c", lambda s: round(float(s.mean(skipna=True)), 1)),
-        media_maxima_c=("temp_max_c", lambda s: round(float(s.mean(skipna=True)), 1)),
+        media_minima_c=("temp_min_c", _media),
+        media_maxima_c=("temp_max_c", _media),
     )
 
 
 def br(numero: float | None, casas: int = 1) -> str:
     """Número no formato brasileiro (vírgula decimal)."""
-    if numero is None:
+    if numero is None or pd.isna(numero):
         return "sem dado"
     return f"{numero:.{casas}f}".replace(".", ",")
 
@@ -168,15 +181,32 @@ def dia(data: pd.Timestamp | None) -> str:
     return "sem dado" if data is None else data.strftime("%d/%m")
 
 
+CONCENTRADA_PCT = 50.0  # acima disso, a maior parte da chuva veio em dias de chuva forte
+
+
+def frase_concentracao(ind: Indicadores) -> str:
+    """Diz se a chuva veio concentrada só quando os números mostram isso."""
+    if ind.dias_chuva_intensa == 0:
+        return "Nenhum dia teve chuva forte (10 mm ou mais): a chuva veio em pancadas pequenas."
+    base = (f"{br(ind.pct_chuva_intensa)}% da água veio em {ind.dias_chuva_intensa} "
+            f"{'dia' if ind.dias_chuva_intensa == 1 else 'dias'} de chuva forte (10 mm ou mais)")
+    if ind.pct_chuva_intensa is not None and ind.pct_chuva_intensa >= CONCENTRADA_PCT:
+        return base + ": a chuva veio concentrada em poucos dias."
+    return base + "; o restante veio em chuvas menores, mais espalhadas."
+
+
 def frases_boletim(ind: Indicadores) -> list[str]:
     """Frases curtas, em linguagem simples, para o boletim ao público."""
-    frases = [
-        f"Entre {dia(ind.primeiro_dia)} e {dia(ind.ultimo_dia)}/{ind.ultimo_dia.year} choveu "
-        f"{br(ind.chuva_total_mm)} mm em {ind.dias_com_chuva} dias. "
-        f"A maior chuva foi de {br(ind.maior_chuva_mm)} mm, em {dia(ind.dia_maior_chuva)}.",
-        f"{br(ind.pct_chuva_intensa)}% da água veio em {ind.dias_chuva_intensa} dias de chuva forte "
-        "(10 mm ou mais): a chuva veio concentrada, não espalhada.",
-    ]
+    periodo = f"Entre {ind.primeiro_dia:%d/%m/%Y} e {ind.ultimo_dia:%d/%m/%Y}"
+    if ind.chuva_total_mm is None:
+        frases = [f"{periodo} a chuva ficou sem dado na fonte."]
+    else:
+        frases = [f"{periodo} choveu {br(ind.chuva_total_mm)} mm em {ind.dias_com_chuva} dias."
+                  + (f" A maior chuva foi de {br(ind.maior_chuva_mm)} mm, em {dia(ind.dia_maior_chuva)}."
+                     if ind.maior_chuva_mm is not None else "")]
+        frases.append(frase_concentracao(ind))
+    if ind.dias_sem_dado_chuva:
+        frases.append(f"Em {ind.dias_sem_dado_chuva} dias a fonte não informou a chuva; esses dias ficaram sem dado.")
     if ind.seca.dias:
         frases.append(
             f"O maior período sem chuva relevante foi de {ind.seca.dias} dias seguidos "

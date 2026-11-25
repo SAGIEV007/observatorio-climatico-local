@@ -52,7 +52,7 @@ def montar_html(ind: ind_mod.Indicadores, semanas) -> str:
     cartoes = [
         (f"{br(ind.chuva_total_mm)} mm", f"de chuva em {ind.dias_com_chuva} dias"),
         (f"{ind.seca.dias} dias", f"seguidos sem chuva ({dia(ind.seca.inicio)} a {dia(ind.seca.fim)})"),
-        (f"{ind.dias_de_calor} dias", f"com máxima de 30 °C ou mais (pico {br(ind.maior_maxima_c)} °C)"),
+        (f"{ind.dias_de_calor} dias", f"com máxima de {br(ind.limiar_calor, 0)} °C ou mais (pico {br(ind.maior_maxima_c)} °C)"),
     ]
     linhas = "".join(
         f"<tr><td>{s.de:%d/%m} a {s.ate:%d/%m}</td><td>{s.dias}</td><td>{br(s.chuva_mm)}</td>"
@@ -63,8 +63,8 @@ def montar_html(ind: ind_mod.Indicadores, semanas) -> str:
     blocos = "".join(f'<div class="cartao"><b>{esc(v)}</b><span>{esc(t)}</span></div>' for v, t in cartoes)
     itens = "".join(f"<li>{esc(f)}</li>" for f in frases[:-1])
     return f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
-<title>Boletim Agroclimático · Marília-SP</title><style>{CSS}</style></head><body>
-<h1>Boletim Agroclimático · Marília-SP</h1>
+<title>Boletim Agroclimático · {esc(config.LOCALIDADE)}</title><style>{CSS}</style></head><body>
+<h1>Boletim Agroclimático · {esc(config.LOCALIDADE)}</h1>
 <p class="sub">Como foram a chuva e a temperatura de {ind.primeiro_dia:%d/%m/%Y} a {ind.ultimo_dia:%d/%m/%Y}
 · Observatório Climático Local (projeto de extensão, Ciência de Dados, Unimar)</p>
 <div class="cartoes">{blocos}</div>
@@ -82,7 +82,10 @@ def achar_navegador() -> str | None:
         caminho = shutil.which(nome)
         if caminho:
             return caminho
-    candidatos = sorted(Path.home().glob(".cache/ms-playwright/chromium_headless_shell-*/*/chrome-headless-shell"))
+    candidatos = sorted(
+        Path.home().glob(".cache/ms-playwright/chromium_headless_shell-*/*/chrome-headless-shell"),
+        key=lambda p: int(p.parent.parent.name.rsplit("-", 1)[-1]),
+    )
     return str(candidatos[-1]) if candidatos else None
 
 

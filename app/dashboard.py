@@ -25,12 +25,12 @@ import indicadores as ind_mod  # noqa: E402
 from indicadores import br, dia  # noqa: E402
 
 
-@st.cache_data
+@st.cache_data(ttl=600)
 def carregar_base() -> pd.DataFrame:
     return ind_mod.ler_base(config.BANCO)
 
 
-@st.cache_data
+@st.cache_data(ttl=600)
 def carregar_qualidade() -> list[dict]:
     if not config.ARQUIVO_QUALIDADE.exists():
         return []
@@ -138,6 +138,9 @@ def main() -> None:
         df = carregar_base()
     except FileNotFoundError as erro:
         st.error(str(erro))
+        st.stop()
+    if df.empty:
+        st.error("O banco existe, mas a tabela clima_diario está vazia. Rode: python banco.py")
         st.stop()
     limiar_chuva, limiar_calor = barra_lateral()
     ind = ind_mod.calcular(df, limiar_chuva=limiar_chuva, limiar_calor=limiar_calor)

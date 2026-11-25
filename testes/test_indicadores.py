@@ -110,12 +110,68 @@ class TestConcordanciaComSQL(unittest.TestCase):
             self.sql_calor,
         )
 
-    def test_maior_sequencia_seca_da_base_real(self):
-        self.assertEqual(self.ind.seca.dias, 5)
-        self.assertEqual(self.ind.seca.inicio, pd.Timestamp("2026-10-17"))
+    def test_maior_chuva_igual_ao_sql(self):
+        with duckdb.connect(str(config.BANCO), read_only=True) as con:
+            maior, dia_maior = con.execute(
+                "SELECT MAX(precip_mm), MIN(data) FILTER (WHERE precip_mm = (SELECT MAX(precip_mm) FROM clima_diario))"
+                " FROM clima_diario"
+            ).fetchone()
+        self.assertEqual(self.ind.maior_chuva_mm, maior)
+        self.assertEqual(self.ind.dia_maior_chuva, pd.Timestamp(dia_maior))
+
+    def test_maior_sequencia_seca_igual_ao_sql(self):
+        consultas = config.CONSULTAS.read_text(encoding="utf-8")
+        with duckdb.connect(str(config.BANCO), read_only=True) as con:
+            dias_sql = con.execute(
+                "WITH s AS (SELECT data, data - CAST(ROW_NUMBER() OVER (ORDER BY data) AS INTEGER) AS g"
+                " FROM clima_diario WHERE precip_mm < 1) SELECT COUNT(*) AS n, MIN(data) FROM s GROUP BY g"
+                " ORDER BY n DESC, MIN(data) LIMIT 1"
+            ).fetchone()
+        self.assertIn("ROW_NUMBER()", consultas)
+        self.assertEqual((self.ind.seca.dias, self.ind.seca.inicio), (dias_sql[0], pd.Timestamp(dias_sql[1])))
+
+    def test_resumo_semanal_igual_ao_sql(self):
+        with duckdb.connect(str(config.BANCO), read_only=True) as con:
+            sql = con.execute(
+                "SELECT ROUND(SUM(precip_mm),1), COUNT(*) FILTER (WHERE precip_mm>=1) FROM clima_diario"
+                " GROUP BY DATE_TRUNC('week', data) ORDER BY DATE_TRUNC('week', data)"
+            ).fetchall()
+        semanas = indicadores.resumo_semanal(self.df)
+        self.assertEqual(list(zip(semanas["chuva_mm"], semanas["dias_com_chuva"])), sql)
+
+
+class TestDadosAusentes(unittest.TestCase):
+    def test_chuva_toda_ausente_fica_sem_dado_e_nao_zero(self):
+        ind = indicadores.calcular(tabela([None, None, None]))
+        self.assertIsNone(ind.chuva_total_mm)
+        self.assertIn("sem dado", " ".join(indicadores.frases_boletim(ind)))
+
+    def test_semana_sem_temperatura_nao_quebra_o_resumo(self):
+        df = tabela([1, 2, 3], maximas=[None, None, None], minimas=[None, None, None])
+        semanas = indicadores.resumo_semanal(df)
+        self.assertTrue(semanas["media_maxima_c"].isna().all())
+
+    def test_sem_chuva_nao_ha_maior_chuva_igual_ao_sql(self):
+        ind = indicadores.calcular(tabela([0, 0, 0]))
+        self.assertIsNone(ind.maior_chuva_mm)
+        self.assertIsNone(ind.dia_maior_chuva)
 
 
 class TestBoletim(unittest.TestCase):
+    def test_sem_chuva_forte_nao_diz_que_veio_concentrada(self):
+        ind = indicadores.calcular(tabela([2, 3, 4, 2]))
+        texto = " ".join(indicadores.frases_boletim(ind))
+        self.assertNotIn("concentrada", texto)
+
+    def test_chuva_espalhada_nao_diz_que_veio_concentrada(self):
+        ind = indicadores.calcular(tabela([12, 5, 5, 5, 5, 5, 5]))
+        self.assertLess(ind.pct_chuva_intensa, 50)
+        self.assertNotIn("veio concentrada", " ".join(indicadores.frases_boletim(ind)))
+
+    def test_limiar_de_calor_aparece_no_texto(self):
+        ind = indicadores.calcular(tabela([0, 0], maximas=[33, 34]), limiar_calor=32)
+        self.assertIn("32 °C", " ".join(indicadores.frases_boletim(ind)))
+
     def test_boletim_tem_aviso_de_que_nao_e_previsao_e_cita_a_fonte(self):
         ind = indicadores.calcular(tabela([0, 12, 0], maximas=[31, 25, 26]))
         texto = " ".join(indicadores.frases_boletim(ind)).lower()

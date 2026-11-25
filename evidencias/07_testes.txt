@@ -2,9 +2,17 @@ ok
 ok
 ok
 test_boletim_tem_aviso_de_que_nao_e_previsao_e_cita_a_fonte (test_indicadores.TestBoletim.test_boletim_tem_aviso_de_que_nao_e_previsao_e_cita_a_fonte) ... ok
+test_chuva_espalhada_nao_diz_que_veio_concentrada (test_indicadores.TestBoletim.test_chuva_espalhada_nao_diz_que_veio_concentrada) ... ok
+test_limiar_de_calor_aparece_no_texto (test_indicadores.TestBoletim.test_limiar_de_calor_aparece_no_texto) ... ok
+test_sem_chuva_forte_nao_diz_que_veio_concentrada (test_indicadores.TestBoletim.test_sem_chuva_forte_nao_diz_que_veio_concentrada) ... ok
 test_calor_igual_ao_sql (test_indicadores.TestConcordanciaComSQL.test_calor_igual_ao_sql) ... ok
 test_chuva_igual_ao_sql (test_indicadores.TestConcordanciaComSQL.test_chuva_igual_ao_sql) ... ok
-test_maior_sequencia_seca_da_base_real (test_indicadores.TestConcordanciaComSQL.test_maior_sequencia_seca_da_base_real) ... ok
+test_maior_chuva_igual_ao_sql (test_indicadores.TestConcordanciaComSQL.test_maior_chuva_igual_ao_sql) ... ok
+test_maior_sequencia_seca_igual_ao_sql (test_indicadores.TestConcordanciaComSQL.test_maior_sequencia_seca_igual_ao_sql) ... ok
+test_resumo_semanal_igual_ao_sql (test_indicadores.TestConcordanciaComSQL.test_resumo_semanal_igual_ao_sql) ... ok
+test_chuva_toda_ausente_fica_sem_dado_e_nao_zero (test_indicadores.TestDadosAusentes.test_chuva_toda_ausente_fica_sem_dado_e_nao_zero) ... ok
+test_sem_chuva_nao_ha_maior_chuva_igual_ao_sql (test_indicadores.TestDadosAusentes.test_sem_chuva_nao_ha_maior_chuva_igual_ao_sql) ... ok
+test_semana_sem_temperatura_nao_quebra_o_resumo (test_indicadores.TestDadosAusentes.test_semana_sem_temperatura_nao_quebra_o_resumo) ... ok
 test_ausente_nao_vira_zero_na_soma_nem_na_cobertura (test_indicadores.TestIndicadores.test_ausente_nao_vira_zero_na_soma_nem_na_cobertura) ... ok
 test_limiares_mudam_as_contagens (test_indicadores.TestIndicadores.test_limiares_mudam_as_contagens) ... ok
 test_porcentagem_de_chuva_intensa_sem_chuva_fica_zero (test_indicadores.TestIndicadores.test_porcentagem_de_chuva_intensa_sem_chuva_fica_zero) ... ok
@@ -31,4 +39,4 @@ test_poucos_ausentes_geram_aviso_e_nao_viram_zero (test_projeto.TestValidacao.te
 test_temperatura_fora_da_faixa (test_projeto.TestValidacao.test_temperatura_fora_da_faixa) ... ok
 test_texto_em_coluna_numerica (test_projeto.TestValidacao.test_texto_em_coluna_numerica) ... ok
 test_variavel_inteira_ausente_interrompe_a_carga (test_projeto.TestValidacao.test_variavel_inteira_ausente_interrompe_a_carga) ... ok
-Ran 33 tests in 5.470s
+Ran 41 tests in 1.977s
